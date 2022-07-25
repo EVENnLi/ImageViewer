@@ -77,9 +77,8 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
             ImageItem item=(ImageItem) dataList.get(position);
             ImageItemHolder itemHolder=(ImageItemHolder) holder;
             ((ImageItemHolder) holder).view1.setImageBitmap(item.getBitmap1());
-            ((ImageItemHolder) holder).view2.setImageBitmap(item.getBitmap2());
             ((ImageItemHolder) holder).text1.setText(item.getAuthor1());
-            ((ImageItemHolder) holder).text2.setText(item.getAuthor2());
+
 
 
              // @author Evenli
@@ -117,14 +116,10 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     class ImageItemHolder extends RecyclerView.ViewHolder{
         ImageView view1;
         TextView text1;
-        ImageView view2;
-        TextView text2;
         public ImageItemHolder(@NonNull View itemView) {
             super(itemView);
             view1=itemView.findViewById(R.id.image_view_one);
             text1=itemView.findViewById(R.id.author_text_one);
-            view2=itemView.findViewById(R.id.image_view_two);
-            text2=itemView.findViewById(R.id.author_text_two);
         }
     }
 
