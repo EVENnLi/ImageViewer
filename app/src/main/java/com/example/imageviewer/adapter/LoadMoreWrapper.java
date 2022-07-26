@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -56,7 +57,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
                 return adapter.onCreateViewHolder(parent,viewType);
             }
             case PROGRESS_ITEM:{
-                View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_item,parent);
+                View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_item,parent,false);
                 return new ProgressbarHolder(view);
             }
             default:
@@ -95,10 +96,12 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
      */
     class ProgressbarHolder extends RecyclerView.ViewHolder{
         ProgressBar progressBar;
+        TextView  loadingText;
 
         public ProgressbarHolder(@NonNull View itemView) {
             super(itemView);
             progressBar=itemView.findViewById(R.id.progress_bar);
+            loadingText=itemView.findViewById(R.id.loading_text_view);
         }
     }
 
