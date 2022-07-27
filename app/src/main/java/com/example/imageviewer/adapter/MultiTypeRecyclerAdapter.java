@@ -21,8 +21,6 @@ import java.util.List;
  */
 
 public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    public static final int IMAGE_ITEM=1;
-    public static final int PROGRESS_BAR_ITEM=2;
 
     private List<Object> dataList;
     private Context mContext;
@@ -38,30 +36,18 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     /**
-     *根据ViewType判断加哪一个布局
+     *创建ViewHolder
      * @param parent 父View
      * @param viewType 子项的种类
-     * @return 返回不同的子项Holder
+     * @return 新的viewHolder
      */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder=null;
         View inflate;
-
-        switch (viewType){
-            case IMAGE_ITEM:{
-                inflate= LayoutInflater.from(mContext).inflate(R.layout.image_item,parent,false);
-                viewHolder=new ImageItemHolder(inflate);
-                break;
-            }
-            case PROGRESS_BAR_ITEM:{
-                inflate=LayoutInflater.from(mContext).inflate(R.layout.progress_bar_item,parent,false);
-                viewHolder=new ProgressbarHolder(inflate);
-                break;
-            }
-            default:
-        }
+        inflate= LayoutInflater.from(mContext).inflate(R.layout.image_item,parent,false);
+       viewHolder=new ImageItemHolder(inflate);
         return viewHolder;
     }
 
@@ -73,42 +59,19 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(getItemViewType(position)==IMAGE_ITEM){
+
             ImageItem item=(ImageItem) dataList.get(position);
             ImageItemHolder itemHolder=(ImageItemHolder) holder;
             ((ImageItemHolder) holder).view1.setImageBitmap(item.getBitmap1());
-            ((ImageItemHolder) holder).view2.setImageBitmap(item.getBitmap2());
             ((ImageItemHolder) holder).text1.setText(item.getAuthor1());
-            ((ImageItemHolder) holder).text2.setText(item.getAuthor2());
 
-
-             // @author Evenli
-             // 下面搁这加点点击事件，待补充
-
-        }
     }
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return dataList.size()+1;
     }
 
-    /**
-     * 其中ImageItem实例是图片，Object实例为progress
-     * @param position 子项的坐标
-     * @return 子项的种类
-     */
-    @Override
-    public int getItemViewType(int position) {
-        //获取当前项的实例
-        Object o=dataList.get(position);
-        //分辨该实例
-        if(o instanceof ImageItem){
-            return IMAGE_ITEM;
-        }else{
-            return PROGRESS_BAR_ITEM;
-        }
-    }
 
 
     /**
@@ -117,27 +80,13 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     class ImageItemHolder extends RecyclerView.ViewHolder{
         ImageView view1;
         TextView text1;
-        ImageView view2;
-        TextView text2;
         public ImageItemHolder(@NonNull View itemView) {
             super(itemView);
             view1=itemView.findViewById(R.id.image_view_one);
             text1=itemView.findViewById(R.id.author_text_one);
-            view2=itemView.findViewById(R.id.image_view_two);
-            text2=itemView.findViewById(R.id.author_text_two);
         }
     }
 
 
-    /**
-     * 加载项的Holder
-     */
-    class ProgressbarHolder extends RecyclerView.ViewHolder{
-        ProgressBar progressBar;
 
-        public ProgressbarHolder(@NonNull View itemView) {
-            super(itemView);
-            progressBar=itemView.findViewById(R.id.progress_bar);
-        }
-    }
 }

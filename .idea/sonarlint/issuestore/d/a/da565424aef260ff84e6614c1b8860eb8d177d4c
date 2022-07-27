@@ -1,0 +1,7 @@
+
+[
+java:S2637A"EThis method's return value is marked "@NonNull" but null is returned.(ŠÓÅ–
+T
+java:S1854N">Remove this useless assignment to local variable "itemHolder".(Ÿˆ
+E
+java:S1481N"/Remove this unused "itemHolder" local variable.(Ÿˆ
