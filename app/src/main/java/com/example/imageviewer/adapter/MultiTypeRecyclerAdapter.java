@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private List<Object> dataList;
+    private List<ImageItem> dataList;
     private Context mContext;
 
     /**
@@ -30,7 +30,7 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
      * @param dataList 装载有数据类的List
      * @param context  上下文
      */
-    public MultiTypeRecyclerAdapter(List<Object> dataList,Context context) {
+    public MultiTypeRecyclerAdapter(List<ImageItem> dataList,Context context) {
         this.dataList = dataList;
         mContext=context;
     }
@@ -62,8 +62,7 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
 
             ImageItem item=(ImageItem) dataList.get(position);
             ImageItemHolder itemHolder=(ImageItemHolder) holder;
-            ((ImageItemHolder) holder).view1.setImageBitmap(item.getBitmap1());
-            ((ImageItemHolder) holder).text1.setText(item.getAuthor1());
+            //绑定图片
 
     }
 
@@ -86,7 +85,6 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
             text1=itemView.findViewById(R.id.author_text_one);
         }
     }
-
 
 
 }

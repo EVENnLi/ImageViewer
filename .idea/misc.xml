@@ -3,15 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<<<<<<< HEAD
-        <entry key="..\:/ImageViewer/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/ImageViewer/app/src/main/res/layout/image_item.xml" value="0.3333333333333333" />
-        <entry key="..\:/ImageViewer/app/src/main/res/layout/progress_bar_item.xml" value="0.3625" />
-=======
+        <entry key="..\:/Android/ImageViewer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.188" />
         <entry key="..\:/Android/ImageViewer/app/src/main/res/layout/activity_main.xml" value="0.2520833333333333" />
         <entry key="..\:/Android/ImageViewer/app/src/main/res/layout/image_item.xml" value="0.33" />
         <entry key="..\:/Android/ImageViewer/app/src/main/res/layout/progress_bar_item.xml" value="0.2" />
->>>>>>> 65c446f0f22acbf87c13e257f13213f312fb4030
       </map>
     </option>
   </component>

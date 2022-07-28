@@ -22,11 +22,11 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
     //加载状态，默认加载完成
     private int loadState=2;
     //加载中
-    private final int LOADING=1;
+    public static final int LOADING=1;
     //加载完成
-    private final int LOAD_COMPLETE=2;
+    public static final int LOAD_COMPLETE=2;
     //加载失败
-    private final int LOAD_FAILED=3;
+    public static final int LOAD_FAILED=3;
 
     //布局种类
     private final int IMAGE_ITEM=4;
@@ -69,6 +69,8 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ProgressbarHolder){
             ProgressbarHolder pHolder=(ProgressbarHolder) holder;
+            ProgressBar progressBar=pHolder.progressBar;
+            TextView text=pHolder.loadingText;
             switch (loadState){
                 //TODO:具体的加载事件的文本显示
                 case LOADING:
@@ -132,5 +134,6 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
      */
     public void setLoadState(int loadState) {
         this.loadState = loadState;
+        notifyDataSetChanged();
     }
 }
