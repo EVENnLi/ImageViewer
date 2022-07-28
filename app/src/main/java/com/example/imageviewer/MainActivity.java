@@ -1,9 +1,11 @@
 package com.example.imageviewer;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.imageviewer.adapter.LoadMoreWrapper;
 import com.example.imageviewer.adapter.MultiTypeRecyclerAdapter;
@@ -18,6 +20,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements ImageContact.ImageUI {
 
     private List<ImageItem> dataList=new ArrayList<>();
+    private ImageContact.ImagePtr mPresenter;
     private LoadMoreWrapper wrapper;
     private MultiTypeRecyclerAdapter adapter;
     private RecyclerView recyclerView;
@@ -25,6 +28,12 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mPresenter=getPresenter();
+       initView();
+        //initData();
+        initListener();
+
+        mPresenter.getMore();
     }
 
 
@@ -64,10 +73,11 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
       recyclerView.addOnScrollListener(new LoadingOnScrollListener() {
           @Override
           public void loadMore() {
+              Log.d("TAG", "loadMore: ");
               //通知适配器开始加载
               wrapper.setLoadState(LoadMoreWrapper.LOADING);
               //调用p层方法获得更多图片
-              getPresenter().getMore();
+              mPresenter.getMore();
           }
       });
     }
@@ -75,7 +85,8 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
     @Override
     public void initData() {
         //进入应用先加载几张图
-
+        Log.d("TAG", "initData: ");
+        getPresenter().getMore();
     }
 
 

@@ -70,8 +70,13 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
             switch (loadState){
                 //TODO:具体的加载事件的文本显示
                 case LOADING:
-
+                    text.setText("加载中");
+                    progressBar.setVisibility(View.VISIBLE);
+                    break;
                 case LOAD_COMPLETE:
+                    text.setText("加载完成");
+                    //延时1秒消失
+                    break;
 
                 case LOAD_FAILED:
 

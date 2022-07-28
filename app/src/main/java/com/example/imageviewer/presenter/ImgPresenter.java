@@ -2,6 +2,7 @@ package com.example.imageviewer.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +12,7 @@ import com.example.imageviewer.base.BasePresenter;
 import com.example.imageviewer.base.HttpResponseListener;
 import com.example.imageviewer.bean.ImageItem;
 import com.example.imageviewer.model.ImgModel;
+import com.example.imageviewer.util.ThreadPoolUtil;
 
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class ImgPresenter extends BasePresenter<ImageContact.ImageUI,List<ImageI
     /**
      * 每次加载十张图片
      */
-    private final int LIMIT=10;
+    private final int LIMIT=20;
 
 
     private Handler mHandler=new Handler(Looper.getMainLooper()){
@@ -41,6 +43,7 @@ public class ImgPresenter extends BasePresenter<ImageContact.ImageUI,List<ImageI
 
     @Override
     public void getMore() {
+        Log.d("TAG", "getMore: ");
         //获得用于发送网络请求的uri
         String uriString=null;
         //组装一下https://picsum.photos/v2/list?page=2&limit=100
@@ -48,14 +51,20 @@ public class ImgPresenter extends BasePresenter<ImageContact.ImageUI,List<ImageI
         page++;
 
 
-        //调用m层方法
-        mImgMdl.getMore(uriString,this);
+        String finalUriString = uriString;
+        Runnable networkTest=(()->{
+            //调用m层方法
+            mImgMdl.getMore(finalUriString,this);
+        });
+
+        ThreadPoolUtil.S_THREAD_POOL_EXECUTOR.execute(networkTest);
 
     }
 
     @Override
     public void onSuccess(Object tag, List<ImageItem> dataList) {
         //切到主线程更新数据
+        Log.d("TAG", dataList.toString());
         mHandler.post(() -> getView().getMoreSucceed(dataList));
     }
 
