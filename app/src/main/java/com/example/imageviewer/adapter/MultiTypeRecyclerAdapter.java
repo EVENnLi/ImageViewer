@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.imageviewer.R;
 import com.example.imageviewer.bean.ImageItem;
+import com.example.imageviewer.util.ImageLoader;
 
 import java.util.List;
 
@@ -22,17 +22,19 @@ import java.util.List;
 
 public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private List<Object> dataList;
+    private List<ImageItem> dataList;
     private Context mContext;
+    private ImageLoader mLoader;
 
     /**
      * 取得数据
      * @param dataList 装载有数据类的List
      * @param context  上下文
      */
-    public MultiTypeRecyclerAdapter(List<Object> dataList,Context context) {
+    public MultiTypeRecyclerAdapter(List<ImageItem> dataList,Context context) {
         this.dataList = dataList;
         mContext=context;
+        mLoader=ImageLoader.build(context);
     }
 
     /**
@@ -60,10 +62,15 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-            ImageItem item=(ImageItem) dataList.get(position);
+            ImageItem item=dataList.get(position);
             ImageItemHolder itemHolder=(ImageItemHolder) holder;
-            ((ImageItemHolder) holder).view1.setImageBitmap(item.getBitmap1());
-            ((ImageItemHolder) holder).text1.setText(item.getAuthor1());
+            ImageView view= itemHolder.view1;
+            //绑定作者信息
+            itemHolder.text1.setText(item.getAuthor());
+            //绑定图片
+        //宽高不确定到时候再说
+           mLoader.bindBitmap(item.getDownLoadUri(),view,0,0);
+
 
     }
 
@@ -86,7 +93,6 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
             text1=itemView.findViewById(R.id.author_text_one);
         }
     }
-
 
 
 }

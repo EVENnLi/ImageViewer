@@ -7,35 +7,26 @@ import android.graphics.Bitmap;
  */
 public class ImageItem {
     /**
-     * 图的数据
+     * 网络请求返回的数据
      */
-    String uriString1;
-    Bitmap bitmap1;
-    String author1;
 
+    String author;
 
-    public String getUriString1() {
-        return uriString1;
+    String downLoadUri;
+
+    public String getAuthor() {
+        return author;
     }
 
-    public void setUriString1(String uriString1) {
-        this.uriString1 = uriString1;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public Bitmap getBitmap1() {
-        return bitmap1;
+    public String getDownLoadUri() {
+        return downLoadUri;
     }
 
-    public void setBitmap1(Bitmap bitmap1) {
-        this.bitmap1 = bitmap1;
+    public void setDownLoadUri(String downLoadUri) {
+        this.downLoadUri = downLoadUri;
     }
-
-    public String getAuthor1() {
-        return author1;
-    }
-
-    public void setAuthor1(String author1) {
-        this.author1 = author1;
-    }
-
 }
