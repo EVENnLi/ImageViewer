@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.example.imageviewer.R;
 import com.example.imageviewer.bean.LoaderResult;
 import com.jakewharton.disklrucache.DiskLruCache;
 
@@ -24,7 +25,7 @@ import java.io.OutputStream;
 public class ImageLoader {
     private static final String TAG = "ImageLoader";
     public static final int MESSAGE_POST_RESULT = 1;
-    private static final int TAG_KEY_URI = 2;
+    private static final int TAG_KEY_URI = R.id.imageloader_uri;
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 50;
     private static final int DISK_CACHE_INDEX = 0;
     private boolean mIsDiskLruCacheCreated = false;

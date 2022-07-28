@@ -28,6 +28,7 @@ public class ImageResizer {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFileDescriptor(fd, null, options);
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFileDescriptor(fd, null, options);
     }
 
@@ -36,15 +37,18 @@ public class ImageResizer {
         if (reqWidth == 0 || reqHeight == 0) {
             return 1;
         }
-        int height = options.outHeight;
         int width = options.outWidth;
-        Log.e(TAG, "origin,w=" + width + "h=" + height);
+        int height = options.outHeight;
         int inSampleSize = 1;
-        //宽高应该同时满足目标宽高，所以使用或运算
-        while (height / inSampleSize >= reqHeight || width / inSampleSize >= reqWidth) {
-            inSampleSize *= 2;
+
+        if (height > reqHeight || width > reqWidth) {
+            int halfHeight = height / 2;
+            int halfWidth = width / 2;
+            while (halfHeight / inSampleSize >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
         }
-        Log.e(TAG, "InSampleSize: " + inSampleSize);
+        Log.d(TAG,"采样率 = " + inSampleSize);
         return inSampleSize;
     }
 }
