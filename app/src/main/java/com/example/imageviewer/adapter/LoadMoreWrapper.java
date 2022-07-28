@@ -32,10 +32,6 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
     private final int IMAGE_ITEM=4;
     private final int PROGRESS_ITEM=5;
 
-
-
-
-
     public LoadMoreWrapper(RecyclerView.Adapter adapter1) {
         adapter=adapter1;
     }
