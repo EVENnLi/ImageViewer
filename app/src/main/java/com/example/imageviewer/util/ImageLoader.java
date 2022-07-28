@@ -32,6 +32,7 @@ public class ImageLoader {
     private final Handler mMainHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
+            //之所以要封装成result对象，就是方便使用Handler来传递消息
             LoaderResult result = (LoaderResult) msg.obj;
             ImageView imageView = result.mImageView;
             imageView.setImageBitmap(result.mBitmap);

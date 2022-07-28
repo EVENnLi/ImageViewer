@@ -7,8 +7,6 @@ x
 Happ/src/main/java/com/example/imageviewer/base/HttpResponseListener.java,2\b\2b975a7fbbe1e627dd3da5dcb85f79c93f5b11ef
 p
 @app/src/main/java/com/example/imageviewer/base/BaseActivity.java,8\1\81f31b3f278b8d4d33fdaad0d94d6b48dd5e11a0
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 s
 Capp/src/main/java/com/example/imageviewer/base/IBaseXPresenter.java,d\e\dee250087f8b5b799b256e7980ba25e6f87fad77
 n
@@ -33,12 +31,8 @@ r
 Bapp/src/main/java/com/example/imageviewer/util/ThreadPoolUtil.java,3\a\3a0bd853fcb7b66c2a1976d6c7a6e857ac0aeaac
 p
 @app/src/main/java/com/example/imageviewer/bean/LoaderResult.java,9\3\93c1a07023c837bff94ceccbb866be52e6f22558
-o
-?app/src/main/java/com/example/imageviewer/util/ImageLoader.java,4\4\448beb2d606d2cbd4145ed57b806d3497f14a919
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
 p
