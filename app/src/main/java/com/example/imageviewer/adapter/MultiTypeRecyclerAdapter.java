@@ -71,9 +71,23 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
             itemHolder.text1.setText(item.getAuthor());
             //绑定图片
         //宽高不确定到时候再说
-           mLoader.bindBitmap(item.getDownLoadUri(),view,0,0);
-        //Bitmap bitmap=mLoader.loadBitmap(item.getDownLoadUri(),200,90);
-        //view.setImageBitmap(bitmap);
+          // mLoader.bindBitmap(item.getDownLoadUri(),view,0,0);
+
+
+
+     /*   Runnable task=(()->{
+            Bitmap bitmap= AboutUrl.downloadBitmapFromUrl(item.getDownLoadUri());
+
+            Handler mHandler=new Handler(Looper.getMainLooper());
+
+            mHandler.post(()->{
+                view.setImageBitmap(bitmap);
+            });
+
+        });
+
+        ThreadPoolUtil.S_THREAD_POOL_EXECUTOR.execute(task);
+*/
 
 
     }

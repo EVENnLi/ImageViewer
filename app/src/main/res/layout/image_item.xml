@@ -16,10 +16,10 @@
             android:id="@+id/image_view_one"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@mipmap/ic_launcher" />
+            />
 
         <TextView
             android:id="@+id/author_text_one"

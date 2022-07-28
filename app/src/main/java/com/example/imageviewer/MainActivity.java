@@ -74,10 +74,13 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
           @Override
           public void loadMore() {
               Log.d("TAG", "loadMore: ");
-              //通知适配器开始加载
-              wrapper.setLoadState(LoadMoreWrapper.LOADING);
-              //调用p层方法获得更多图片
-              mPresenter.getMore();
+              if(wrapper.getLoadState()!=LoadMoreWrapper.LOADING){
+                  //通知适配器开始加载
+                  wrapper.setLoadState(LoadMoreWrapper.LOADING);
+                  //调用p层方法获得更多图片
+                  mPresenter.getMore();
+              }
+
           }
       });
     }
@@ -86,7 +89,6 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
     public void initData() {
         //进入应用先加载几张图
         Log.d("TAG", "initData: ");
-        getPresenter().getMore();
     }
 
 
