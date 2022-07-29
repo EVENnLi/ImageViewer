@@ -15,7 +15,9 @@ import com.example.imageviewer.base.BaseActivity;
 import com.example.imageviewer.bean.ImageItem;
 import com.example.imageviewer.listener.LoadingOnScrollListener;
 import com.example.imageviewer.presenter.ImgPresenter;
+import com.example.imageviewer.test.TestActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +48,12 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
     @Override
     public void getMoreSucceed(List<ImageItem> newData) {
         dataList.addAll(newData);
-        wrapper.setLoadState(LoadMoreWrapper.LOAD_COMPLETE);
+      //  wrapper.setLoadState(LoadMoreWrapper.LOAD_COMPLETE);
 
+        Intent intent=new Intent(MainActivity.this, TestActivity.class);
+        intent.putExtra("datalist", (Serializable) dataList);
+        intent.putExtra("position",0);
+        startActivityForResult(intent,0);
     }
 
     /**

@@ -28,7 +28,7 @@ public class ImgPresenter extends BasePresenter<ImageContact.ImageUI,List<ImageI
     /**
      * 每次加载十张图片
      */
-    private final int LIMIT=14;
+    private final int LIMIT=24;
 
 
     private Handler mHandler=new Handler(Looper.getMainLooper()){

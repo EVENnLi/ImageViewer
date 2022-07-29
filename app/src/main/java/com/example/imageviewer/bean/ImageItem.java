@@ -2,10 +2,16 @@ package com.example.imageviewer.bean;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * @author EvenLi
  */
-public class ImageItem { @Override
+public class ImageItem implements Serializable {
+
+
+
+    @Override
     public String toString() {
         return "ImageItem{" +
                 "author='" + author + '\'' +

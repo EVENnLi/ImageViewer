@@ -79,7 +79,14 @@ public class HorizonSrollViewEx extends ViewGroup {
         } else if(widthspecMode==MeasureSpec.AT_MOST&&heightspecMode==MeasureSpec.AT_MOST){
             final View childView=getChildAt(0);
             measureHeight=childView.getHeight();//高度为子元素的高
-            measureWidth=childView.getWidth()*childCount;//宽度为所有子元素宽度的和
+            for (int i = 0; i <getChildCount()-1 ; i++) {
+                final View view=getChildAt(i);
+                if(view.getHeight()>measureHeight){
+                    measureHeight=view.getHeight();
+                }
+            }
+
+            measureWidth=childView.getMeasuredWidth()*childCount;//宽度为所有子元素宽度的和
             //假设子元素宽高不同
             //宽度应遍历子元素，相加其宽度
             //高度应取所有子元素中最大的
@@ -112,6 +119,8 @@ public class HorizonSrollViewEx extends ViewGroup {
                 childLeft+=childWidth;
             }
         }
+
+
     }
 
     /**
