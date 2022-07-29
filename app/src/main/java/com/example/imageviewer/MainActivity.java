@@ -100,4 +100,14 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
     public ImageContact.ImagePtr onBindPresenter() {
         return new ImgPresenter(this);
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
 }

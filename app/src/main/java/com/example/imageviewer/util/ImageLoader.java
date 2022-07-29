@@ -40,6 +40,7 @@ public class ImageLoader {
             String uri = (String) imageView.getTag(TAG_KEY_URI);
             if (uri.equals(result.uri)) {
                 imageView.setImageBitmap(result.mBitmap);
+                Log.e(TAG, "handleMessage: 相同");
             } else {
                 Log.e(TAG, "set image bitmap,but url has changed,ignored !");
             }
@@ -99,19 +100,16 @@ public class ImageLoader {
      */
     public void bindBitmap(final String uri, ImageView imageView, final int reqWidth, final int reqHeight) {
         imageView.setTag(TAG_KEY_URI, uri);
-       // imageView.setTag(uri);
+        imageView.setTag(uri);
         Bitmap bitmap = loadBitmapFromMemCache(uri);
-
-        Log.d(TAG, "bindBitmap: "+bitmap);
+        Log.d(TAG, "内存获取： " + bitmap);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
-            Log.e(TAG, "loadBitmap+url:内存 " + uri);
-           // Log.e(TAG, "bindBitmap: 内存获取", null);
             return;
         }
         Runnable loadBitmapTask = () -> {
             Bitmap bitmap1 = loadBitmap(uri, reqWidth, reqHeight);
-            Log.d(TAG, "bindBitmap: "+bitmap);
+            Log.d(TAG, "bindBitmap: " + bitmap);
             if (bitmap1 != null) {
                 LoaderResult result = new LoaderResult(imageView, uri, bitmap1);
                 mMainHandler.obtainMessage(MESSAGE_POST_RESULT, result).sendToTarget();
@@ -131,19 +129,17 @@ public class ImageLoader {
     public Bitmap loadBitmap(String uri, int reqWidth, int reqHeight) {
         Bitmap bitmap = loadBitmapFromMemCache(uri);
         if (bitmap != null) {
-
-            Log.e(TAG, "loadBitmap+url:内存 " + uri);
+            Log.e(TAG, "内存获取:" + uri);
             return bitmap;
         }
         try {
             bitmap = loadBitmapFromDiskCache(uri, reqWidth, reqHeight);
             if (bitmap != null) {
-
-                Log.e(TAG, "loadBitmap:磁盘" + uri);
+                Log.e(TAG, "磁盘获取:" + uri);
                 return bitmap;
             }
             bitmap = loadBitmapFromHttp(uri, reqWidth, reqHeight);
-            Log.e(TAG, "loadBitmap:网络" + uri);
+            Log.e(TAG, "网络获取:" + uri);
         } catch (Exception e) {
             e.printStackTrace();
         }
