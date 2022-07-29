@@ -1,5 +1,6 @@
 package com.example.imageviewer.test;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -15,6 +16,8 @@ public class HorizonSrollViewEx extends ViewGroup {
     private int mChildWidth;
     private int mChildIndex;
     private int screenWidth;
+    private Context mContext;
+    private TestActivity activity;
 
     public int getScreenWidth() {
         return screenWidth;
@@ -40,11 +43,15 @@ public class HorizonSrollViewEx extends ViewGroup {
 
     public HorizonSrollViewEx(Context context) {
         super(context);
+        mContext=context;
+        activity=(TestActivity) context;
         init();
     }
 
     public HorizonSrollViewEx(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext=context;
+        activity=(TestActivity) context;
         init();
     }
 
@@ -205,18 +212,33 @@ public class HorizonSrollViewEx extends ViewGroup {
                 int scrollX=getScrollX();
                 mTracker.computeCurrentVelocity(1000);
                 float xVelocity=mTracker.getXVelocity();
+                int oldIndex=mChildIndex;
                 if(Math.abs(xVelocity)>=50){
                     mChildIndex=xVelocity>0?mChildIndex-1:mChildIndex+1;
+                    if(oldIndex>mChildIndex){
+                        activity.checkAndPreloadingImage(mChildIndex,true,false);
+                    }else if(oldIndex<mChildIndex){
+                        activity.checkAndPreloadingImage(mChildIndex,false,true);
+                    }
                 }else{
                     //如果超过了一半也算翻页
                     mChildIndex=(scrollX+mChildWidth/2)/mChildWidth;
+                    if(oldIndex>mChildIndex){
+                        activity.checkAndPreloadingImage(mChildIndex,true,false);
+                    }else if(oldIndex<mChildIndex){
+                        activity.checkAndPreloadingImage(mChildIndex,false,true);
+                    }
                 }
+
                 //保证坐标大于0且不大于最大值
                 mChildIndex=Math.max(0,Math.min(mChildIndex,mChildSize-1));
                 int dx=mChildIndex*mChildWidth-scrollX;
                 smoothScrollBy(dx,0);
                 mTracker.clear();
                 break;
+
+
+
             }
             default:break;
 
@@ -227,7 +249,9 @@ public class HorizonSrollViewEx extends ViewGroup {
     }
 
 
-    private void smoothScrollBy(int dx,int dy){
+
+
+    public void smoothScrollBy(int dx,int dy){
         mScroller.startScroll(getScrollX(),getScrollY(),dx,dy);
         invalidate();
     }
@@ -238,5 +262,9 @@ public class HorizonSrollViewEx extends ViewGroup {
             scrollTo(mScroller.getCurrX(),mScroller.getCurrY());
             postInvalidate();
         }
+    }
+
+    public void setmChildIndex(int mChildIndex) {
+        this.mChildIndex = mChildIndex;
     }
 }

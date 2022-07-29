@@ -23,6 +23,7 @@ public class TestActivity extends AppCompatActivity {
     private HorizonSrollViewEx horizonSrollViewEx;
     private ImageLoader loader;
     private int screenWidth;
+    private static final int IS_LOADED=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class TestActivity extends AppCompatActivity {
             view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             view.setLayoutParams(layoutParams);
 
-            loader.bindBitmap(uri,view,0,0);
+          //  loader.bindBitmap(uri,view,1080,0);
             horizonSrollViewEx.addView(view);
 
 
@@ -66,15 +67,76 @@ public class TestActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.MATCH_PARENT);
             horizonSrollViewEx.setLayoutParams(params);
 
-        screenWidth=horizonSrollViewEx.getScreenWidth();
+        screenWidth=getResources().getDisplayMetrics().widthPixels;
         Log.e("TAG", "onCreate: 屏幕宽度"+screenWidth );
-
-
         layout.addView(horizonSrollViewEx);
 
 
+        horizonSrollViewEx.smoothScrollBy(position*screenWidth,0);
+        preLoadImage(position);
+    }
+
+   private void preLoadImage(int position){
+        loader.bindBitmap(datalist.get(position).getDownLoadUri(), (ImageView)horizonSrollViewEx.getChildAt(position),screenWidth,0);
+        if(position-1>=0){
+            ImageView view=(ImageView)horizonSrollViewEx.getChildAt(position-1);
+            loader.bindBitmap(datalist.get(position-1).getDownLoadUri(), view
+                   ,screenWidth,0);
+            view.setTag(IS_LOADED);
+        }
+
+        ImageView view=(ImageView)horizonSrollViewEx.getChildAt(position+1);
+        horizonSrollViewEx.setmChildIndex(position);
+        loader.bindBitmap(datalist.get(position+1).getDownLoadUri(), view
+                ,screenWidth,0);
+        view.setTag(IS_LOADED);
 
     }
+
+
+
+    public void checkAndPreloadingImage(int position,boolean left,boolean right){
+
+        if(left&&right){
+            return;
+        }else if(left){
+            Log.e("TAG", "checkAndPreloadingImage: left");
+            if(position-1>=0){
+                ImageView view=(ImageView)horizonSrollViewEx.getChildAt(position-1);
+             //   if(view.getTag()!=null){
+                    loader.bindBitmap(datalist.get(position-1).getDownLoadUri(), view
+                            ,screenWidth,0);
+                    view.setTag(IS_LOADED);
+               // }
+            }
+            if(position-2>=0){
+                ImageView view=(ImageView)horizonSrollViewEx.getChildAt(position-2);
+              //  if(view.getTag()!=null){
+                    loader.bindBitmap(datalist.get(position-2).getDownLoadUri(), view
+                            ,screenWidth,0);
+                    view.setTag(IS_LOADED);
+               // }
+            }
+
+        }else if(right){
+            Log.e("TAG", "checkAndPreloadingImage: right");
+            if(position+1<datalist.size()){
+                ImageView view=(ImageView)horizonSrollViewEx.getChildAt(position+1);
+               // if(view.getTag()!=null){
+                    loader.bindBitmap(datalist.get(position+1).getDownLoadUri(), view
+                            ,screenWidth,0);
+                    view.setTag(IS_LOADED);
+               // }
+            }
+            if(position+2<datalist.size()){
+                ImageView view=(ImageView)horizonSrollViewEx.getChildAt(position+2);
+                    loader.bindBitmap(datalist.get(position+2).getDownLoadUri(), view
+                            ,screenWidth,0);
+                    view.setTag(IS_LOADED);
+            }
+        }
+    }
+
 
 
 

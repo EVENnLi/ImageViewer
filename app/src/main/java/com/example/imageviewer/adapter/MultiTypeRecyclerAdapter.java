@@ -80,7 +80,15 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
         //绑定图片
         //宽高不确定到时候再说
         mLoader.bindBitmap(item.getDownLoadUri(), view, 200, 90);
-
+       view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, TestActivity.class);
+                intent.putExtra("datalist", (Serializable) dataList);
+                intent.putExtra("position",position);
+                ((Activity)mContext).startActivityForResult(intent,0);
+            }
+        });
 
 
      /*   Runnable task=(()->{
@@ -116,15 +124,7 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
         public ImageItemHolder(@NonNull View itemView) {
             super(itemView);
             view1 = itemView.findViewById(R.id.image_view_one);
-            view1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent(mContext, TestActivity.class);
-                    intent.putExtra("datalist", (Serializable) dataList);
-                    intent.putExtra("position",0);
-                    ((Activity)mContext).startActivityForResult(intent,0);
-                }
-            });
+
             text1 = itemView.findViewById(R.id.author_text_one);
         }
     }
