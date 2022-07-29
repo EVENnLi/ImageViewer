@@ -14,6 +14,11 @@ public class HorizonSrollViewEx extends ViewGroup {
     private int mChildSize;
     private int mChildWidth;
     private int mChildIndex;
+    private int screenWidth;
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
 
     //记录上次滑动的坐标
     private int mLastX=0;
@@ -95,6 +100,7 @@ public class HorizonSrollViewEx extends ViewGroup {
             final View childView=getChildAt(0);
             measureHeight=heightspecSize;//高度为子元素的高
             measureWidth=widthspecSize*childCount;//宽度为所有子元素宽度的和
+            screenWidth=widthspecSize;
             setMeasuredDimension(measureWidth,measureHeight);
         }else if(heightspecMode==MeasureSpec.AT_MOST){
             final View childView=getChildAt(0);
@@ -113,7 +119,7 @@ public class HorizonSrollViewEx extends ViewGroup {
             final View childView=getChildAt(i);
             //当子元素可见，对其进行layout
             if(childView.getVisibility()!=View.GONE){
-                final int childWidth=childView.getMeasuredWidth();
+                final int childWidth=screenWidth;
                 mChildWidth=childWidth;
                 childView.layout(childLeft,0,childWidth+childLeft,childView.getMeasuredHeight());
                 childLeft+=childWidth;

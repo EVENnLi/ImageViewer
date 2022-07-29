@@ -22,6 +22,7 @@ public class TestActivity extends AppCompatActivity {
     private int position;
     private HorizonSrollViewEx horizonSrollViewEx;
     private ImageLoader loader;
+    private int screenWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +31,17 @@ public class TestActivity extends AppCompatActivity {
         LinearLayout layout=findViewById(R.id.layout);
         horizonSrollViewEx=new HorizonSrollViewEx(this);
         Intent intent=getIntent();
+
+
         loader=ImageLoader.build(this);
 
         datalist=(List<ImageItem>) intent.getSerializableExtra("datalist");
         Log.e("TAG", "onCreate: "+datalist.toString() );
 
+
         position=intent.getIntExtra("position",0);
         Log.e("TAG", "onCreate: position:"+position );
+
 
 
         for (int i = 0; i < datalist.size(); i++) {
@@ -56,10 +61,16 @@ public class TestActivity extends AppCompatActivity {
 
         }
 
+
             ViewGroup.LayoutParams params=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
             horizonSrollViewEx.setLayoutParams(params);
-            layout.addView(horizonSrollViewEx);
+
+        screenWidth=horizonSrollViewEx.getScreenWidth();
+        Log.e("TAG", "onCreate: 屏幕宽度"+screenWidth );
+
+
+        layout.addView(horizonSrollViewEx);
 
 
 

@@ -1,6 +1,8 @@
 package com.example.imageviewer.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +13,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.imageviewer.MainActivity;
 import com.example.imageviewer.R;
 import com.example.imageviewer.bean.ImageItem;
+import com.example.imageviewer.test.TestActivity;
 import com.example.imageviewer.util.ImageLoader;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -111,6 +116,15 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
         public ImageItemHolder(@NonNull View itemView) {
             super(itemView);
             view1 = itemView.findViewById(R.id.image_view_one);
+            view1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(mContext, TestActivity.class);
+                    intent.putExtra("datalist", (Serializable) dataList);
+                    intent.putExtra("position",0);
+                    ((Activity)mContext).startActivityForResult(intent,0);
+                }
+            });
             text1 = itemView.findViewById(R.id.author_text_one);
         }
     }
