@@ -1,6 +1,7 @@
 package com.example.imageviewer.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        Log.d("TAG", "onBindViewHolder: ");
             ImageItem item=dataList.get(position);
             ImageItemHolder itemHolder=(ImageItemHolder) holder;
             ImageView view= itemHolder.view1;
@@ -69,7 +71,23 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
             itemHolder.text1.setText(item.getAuthor());
             //绑定图片
         //宽高不确定到时候再说
-           mLoader.bindBitmap(item.getDownLoadUri(),view,0,0);
+          // mLoader.bindBitmap(item.getDownLoadUri(),view,0,0);
+
+
+
+     /*   Runnable task=(()->{
+            Bitmap bitmap= AboutUrl.downloadBitmapFromUrl(item.getDownLoadUri());
+
+            Handler mHandler=new Handler(Looper.getMainLooper());
+
+            mHandler.post(()->{
+                view.setImageBitmap(bitmap);
+            });
+
+        });
+
+        ThreadPoolUtil.S_THREAD_POOL_EXECUTOR.execute(task);
+*/
 
 
     }

@@ -15,7 +15,7 @@ public class GetHashKey {
             messageDigest.update(url.getBytes());
             cacheKey = bytesToHexString(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            cacheKey=String.valueOf(url.hashCode());
         }
         return cacheKey;
     }

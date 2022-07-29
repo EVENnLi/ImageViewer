@@ -7,8 +7,6 @@ x
 Happ/src/main/java/com/example/imageviewer/base/HttpResponseListener.java,2\b\2b975a7fbbe1e627dd3da5dcb85f79c93f5b11ef
 p
 @app/src/main/java/com/example/imageviewer/base/BaseActivity.java,8\1\81f31b3f278b8d4d33fdaad0d94d6b48dd5e11a0
-s
-Capp/src/main/java/com/example/imageviewer/base/IBaseXPresenter.java,d\e\dee250087f8b5b799b256e7980ba25e6f87fad77
 n
 >app/src/main/java/com/example/imageviewer/base/IBaseXView.java,7\8\78e95644f4b8b8b347cf96986a2f0a93fc9530e6
 q
@@ -31,3 +29,11 @@ v
 Fapp/src/main/java/com/example/imageviewer/adapter/LoadMoreWrapper.java,f\5\f5cc32f62738e3673f36c0e50407d7671002b40c
 
 Oapp/src/main/java/com/example/imageviewer/listener/LoadingOnScrollListener.java,a\c\ac0cc5f83631fbfa662602e5f166cf13dd2faca3
+r
+Bapp/src/main/java/com/example/imageviewer/util/ThreadPoolUtil.java,3\a\3a0bd853fcb7b66c2a1976d6c7a6e857ac0aeaac
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+p
+@app/src/main/java/com/example/imageviewer/bean/LoaderResult.java,9\3\93c1a07023c837bff94ceccbb866be52e6f22558
+s
+Capp/src/main/java/com/example/imageviewer/base/IBaseXPresenter.java,d\e\dee250087f8b5b799b256e7980ba25e6f87fad77

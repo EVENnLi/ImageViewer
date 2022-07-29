@@ -1,8 +1,10 @@
 package com.example.imageviewer;
 
 
+import com.example.imageviewer.base.HttpResponseListener;
 import com.example.imageviewer.base.IBasePresenter;
 import com.example.imageviewer.base.IBaseView;
+import com.example.imageviewer.base.IBaseXView;
 import com.example.imageviewer.bean.ImageItem;
 
 import java.util.List;
@@ -15,7 +17,12 @@ public interface ImageContact {
     /**
      * view层接口
      */
-    interface ImageUI extends IBaseView{
+    interface ImageUI extends IBaseView, IBaseXView {
+
+        void getMoreSucceed(List<ImageItem> newData);
+
+        void getMoreFailed();
+
 
     }
 
@@ -26,9 +33,9 @@ public interface ImageContact {
 
         /**
          * 获得更多图片，这个方法在v层重写的loadmore方法中使用
-         * @return 返回的是带有信息的imageItem的list
          */
-        List<ImageItem> getMore();
+      void getMore();
+
     }
 
     /**
@@ -38,9 +45,9 @@ public interface ImageContact {
 
         /**
          * 网络请求解析后获得对应的数据，此方法在p层的getMore方法中使用，
-         * @param uri p层提供的用来发送网络请求的uri
-         * @return 返回的是带有数据类的List
+         * @param uri 用于发送网络请求
+         * @param callback 回调接口，根据请求成功/失败结果做出相应逻辑
          */
-        List<ImageItem> getMore(String uri);
+        void getMore(String uri, HttpResponseListener callback);
     }
 }

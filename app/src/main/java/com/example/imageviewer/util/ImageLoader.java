@@ -98,14 +98,17 @@ public class ImageLoader {
      * 异步加载,外部通过调用这个方法来实现图片的三级缓存，异步加载里面实际上还调用了同步加载
      */
     public void bindBitmap(final String uri, ImageView imageView, final int reqWidth, final int reqHeight) {
-        imageView.setTag(TAG_KEY_URI, uri);
+        //imageView.setTag(TAG_KEY_URI, uri);
+        imageView.setTag(uri);
         Bitmap bitmap = loadBitmapFromMemCache(uri);
+        Log.d(TAG, "bindBitmap: "+bitmap);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
             return;
         }
         Runnable loadBitmapTask = () -> {
             Bitmap bitmap1 = loadBitmap(uri, reqWidth, reqHeight);
+            Log.d(TAG, "bindBitmap: "+bitmap);
             if (bitmap1 != null) {
                 LoaderResult result = new LoaderResult(imageView, uri, bitmap1);
                 mMainHandler.obtainMessage(MESSAGE_POST_RESULT, result).sendToTarget();

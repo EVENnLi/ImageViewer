@@ -26,11 +26,12 @@ public class AboutUrl {
     public static boolean downloadUrlToStream(String urlString, OutputStream outputStream) {
         HttpURLConnection urlConnection = null;
         BufferedInputStream inputStream = null;
+        BufferedOutputStream out=null;
         try {
             final URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             inputStream = new BufferedInputStream(urlConnection.getInputStream(), IO_BUFFER_SIZE);
-            BufferedOutputStream out = new BufferedOutputStream(outputStream, IO_BUFFER_SIZE);
+            out = new BufferedOutputStream(outputStream, IO_BUFFER_SIZE);
             int b;
             while ((b = inputStream.read()) != -1) {
                 out.write(b);
@@ -46,6 +47,11 @@ public class AboutUrl {
                 if (inputStream != null) {
                     inputStream.close();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                out.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
