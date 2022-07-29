@@ -98,12 +98,15 @@ public class ImageLoader {
      * 异步加载,外部通过调用这个方法来实现图片的三级缓存，异步加载里面实际上还调用了同步加载
      */
     public void bindBitmap(final String uri, ImageView imageView, final int reqWidth, final int reqHeight) {
-        //imageView.setTag(TAG_KEY_URI, uri);
-        imageView.setTag(uri);
+        imageView.setTag(TAG_KEY_URI, uri);
+       // imageView.setTag(uri);
         Bitmap bitmap = loadBitmapFromMemCache(uri);
+
         Log.d(TAG, "bindBitmap: "+bitmap);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
+            Log.e(TAG, "loadBitmap+url:内存 " + uri);
+           // Log.e(TAG, "bindBitmap: 内存获取", null);
             return;
         }
         Runnable loadBitmapTask = () -> {
@@ -128,17 +131,19 @@ public class ImageLoader {
     public Bitmap loadBitmap(String uri, int reqWidth, int reqHeight) {
         Bitmap bitmap = loadBitmapFromMemCache(uri);
         if (bitmap != null) {
-            Log.e(TAG, "loadBitmap+url:" + uri);
+
+            Log.e(TAG, "loadBitmap+url:内存 " + uri);
             return bitmap;
         }
         try {
             bitmap = loadBitmapFromDiskCache(uri, reqWidth, reqHeight);
             if (bitmap != null) {
-                Log.e(TAG, "loadBitmap: url:" + uri);
+
+                Log.e(TAG, "loadBitmap:磁盘" + uri);
                 return bitmap;
             }
             bitmap = loadBitmapFromHttp(uri, reqWidth, reqHeight);
-            Log.e(TAG, "loadBitmap: url:" + uri);
+            Log.e(TAG, "loadBitmap:网络" + uri);
         } catch (Exception e) {
             e.printStackTrace();
         }

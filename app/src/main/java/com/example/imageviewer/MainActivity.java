@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.imageviewer.adapter.LoadMoreWrapper;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
     public void getMoreSucceed(List<ImageItem> newData) {
         dataList.addAll(newData);
         wrapper.setLoadState(LoadMoreWrapper.LOAD_COMPLETE);
+
     }
 
     /**
@@ -61,6 +64,7 @@ public class MainActivity extends BaseActivity<ImageContact.ImagePtr> implements
     public void initView() {
         recyclerView=findViewById(R.id.recycler_view);
         adapter=new MultiTypeRecyclerAdapter(dataList,this);
+        adapter.setHasStableIds(true);
         wrapper=new LoadMoreWrapper(adapter);
         recyclerView.setAdapter(wrapper);
 

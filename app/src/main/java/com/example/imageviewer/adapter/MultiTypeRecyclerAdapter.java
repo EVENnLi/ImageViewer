@@ -71,7 +71,7 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
             itemHolder.text1.setText(item.getAuthor());
             //绑定图片
         //宽高不确定到时候再说
-          // mLoader.bindBitmap(item.getDownLoadUri(),view,0,0);
+           mLoader.bindBitmap(item.getDownLoadUri(),view,200,90);
 
 
 

@@ -1,5 +1,7 @@
 package com.example.imageviewer.adapter;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
     //要装饰的adapter
     RecyclerView.Adapter adapter;
 
+    Handler mHandler=new Handler(Looper.getMainLooper());
     //加载状态，默认加载完成
     private int loadState=2;
     //加载中
@@ -74,12 +77,20 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
                     break;
                 case LOAD_COMPLETE:
                     text.setText("加载完成");
-                    pHolder.itemView.setVisibility(View.INVISIBLE);
                     //延时1秒消失
+                    mHandler.post(()->{
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        pHolder.itemView.setVisibility(View.INVISIBLE);
+                    });
                     break;
 
                 case LOAD_FAILED:
-
+                    text.setText("加载失败");
+                    //延时一秒消失
                 default:
 
             }
@@ -140,7 +151,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
 
     /**
      * 用于给外界获取加载状态的方法
-     * @param loadState 当前加载状态
+
      * @return 同上
      */
     public int getLoadState(){
