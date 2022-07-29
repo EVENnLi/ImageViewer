@@ -21,7 +21,7 @@ import java.util.List;
  * @author EvenLi
  */
 
-public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ImageItem> dataList;
     private Context mContext;
@@ -29,49 +29,52 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
 
     /**
      * 取得数据
+     *
      * @param dataList 装载有数据类的List
      * @param context  上下文
      */
-    public MultiTypeRecyclerAdapter(List<ImageItem> dataList,Context context) {
+    public MultiTypeRecyclerAdapter(List<ImageItem> dataList, Context context) {
         this.dataList = dataList;
-        mContext=context;
-        mLoader=ImageLoader.build(context);
+        mContext = context;
+        mLoader = ImageLoader.build(context);
     }
 
     /**
-     *创建ViewHolder
-     * @param parent 父View
+     * 创建ViewHolder
+     *
+     * @param parent   父View
      * @param viewType 子项的种类
      * @return 新的viewHolder
      */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder=null;
+        RecyclerView.ViewHolder viewHolder = null;
         View inflate;
-        inflate= LayoutInflater.from(mContext).inflate(R.layout.image_item,parent,false);
-       viewHolder=new ImageItemHolder(inflate);
+        inflate = LayoutInflater.from(mContext).inflate(R.layout.image_item, parent, false);
+        viewHolder = new ImageItemHolder(inflate);
         return viewHolder;
     }
 
     /**
      * 绑定控件
-     * @author EvenLi
-     * @param holder 子项的Holder实例
+     *
+     * @param holder   子项的Holder实例
      * @param position 所在项的坐标
+     * @author EvenLi
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         Log.d("TAG", "onBindViewHolder: ");
-            ImageItem item=dataList.get(position);
-            ImageItemHolder itemHolder=(ImageItemHolder) holder;
-            ImageView view= itemHolder.view1;
-            //绑定作者信息
-            itemHolder.text1.setText(item.getAuthor());
-            //绑定图片
+        ImageItem item = dataList.get(position);
+        ImageItemHolder itemHolder = (ImageItemHolder) holder;
+        ImageView view = itemHolder.view1;
+        //绑定作者信息
+        itemHolder.text1.setText(item.getAuthor());
+        //绑定图片
         //宽高不确定到时候再说
-          // mLoader.bindBitmap(item.getDownLoadUri(),view,0,0);
+        mLoader.bindBitmap(item.getDownLoadUri(), view, 200, 90);
 
 
 
@@ -94,21 +97,21 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public int getItemCount() {
-        return dataList.size()+1;
+        return dataList.size() + 1;
     }
-
 
 
     /**
      * 图片布局的Holder
      */
-    class ImageItemHolder extends RecyclerView.ViewHolder{
+    class ImageItemHolder extends RecyclerView.ViewHolder {
         ImageView view1;
         TextView text1;
+
         public ImageItemHolder(@NonNull View itemView) {
             super(itemView);
-            view1=itemView.findViewById(R.id.image_view_one);
-            text1=itemView.findViewById(R.id.author_text_one);
+            view1 = itemView.findViewById(R.id.image_view_one);
+            text1 = itemView.findViewById(R.id.author_text_one);
         }
     }
 

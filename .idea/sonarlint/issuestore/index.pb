@@ -5,8 +5,6 @@ r
 Bapp/src/main/java/com/example/imageviewer/base/IBasePresenter.java,d\d\dd4ae3c071673516e228444d6c454aa3a4c0f5f4
 x
 Happ/src/main/java/com/example/imageviewer/base/HttpResponseListener.java,2\b\2b975a7fbbe1e627dd3da5dcb85f79c93f5b11ef
-p
-@app/src/main/java/com/example/imageviewer/base/BaseActivity.java,8\1\81f31b3f278b8d4d33fdaad0d94d6b48dd5e11a0
 n
 >app/src/main/java/com/example/imageviewer/base/IBaseXView.java,7\8\78e95644f4b8b8b347cf96986a2f0a93fc9530e6
 q
@@ -17,16 +15,12 @@ r
 Bapp/src/main/java/com/example/imageviewer/base/BaseXPresenter.java,1\9\19187337ca67b07674d4209eed908d243ea0967b
 m
 =app/src/main/java/com/example/imageviewer/base/SuperBase.java,7\c\7c873c71feefa0a70c124174a8896cd87fa419fc
-
-Oapp/src/main/java/com/example/imageviewer/adapter/MultiTypeRecyclerAdapter.java,d\a\da565424aef260ff84e6614c1b8860eb8d177d4c
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-v
-Fapp/src/main/java/com/example/imageviewer/adapter/LoadMoreWrapper.java,f\5\f5cc32f62738e3673f36c0e50407d7671002b40c
 
 Oapp/src/main/java/com/example/imageviewer/listener/LoadingOnScrollListener.java,a\c\ac0cc5f83631fbfa662602e5f166cf13dd2faca3
 r

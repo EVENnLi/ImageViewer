@@ -69,7 +69,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
             switch (loadState){
                 //TODO:具体的加载事件的文本显示
                 case LOADING:
-                    text.setText("加载中");
+                    text.setText("加载中...");
                     pHolder.itemView.setVisibility(View.VISIBLE);
                     break;
                 case LOAD_COMPLETE:
@@ -140,7 +140,6 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
 
     /**
      * 用于给外界获取加载状态的方法
-     * @param loadState 当前加载状态
      * @return 同上
      */
     public int getLoadState(){
