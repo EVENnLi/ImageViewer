@@ -5,9 +5,12 @@ import com.example.imageviewer.base.HttpResponseListener;
 import com.example.imageviewer.base.IBasePresenter;
 import com.example.imageviewer.base.IBaseView;
 import com.example.imageviewer.base.IBaseXView;
+import com.example.imageviewer.bean.CatItem;
 import com.example.imageviewer.bean.ImageItem;
 
 import java.util.List;
+
+import retrofit2.http.Query;
 
 /**
  * @author evenli
@@ -19,7 +22,8 @@ public interface ImageContact {
      */
     interface ImageUI extends IBaseView, IBaseXView {
 
-        void getMoreSucceed(List<ImageItem> newData);
+        //void getMoreSucceed(List<ImageItem> newData) throws InterruptedException;
+        void getMoreSucceed(List<CatItem> newData) throws InterruptedException;
 
         void getMoreFailed();
 
@@ -48,6 +52,7 @@ public interface ImageContact {
          * @param uri 用于发送网络请求
          * @param callback 回调接口，根据请求成功/失败结果做出相应逻辑
          */
-        void getMore(String uri, HttpResponseListener callback);
+        void getMore(String uri, HttpResponseListener callback,int limit, int page,
+                    String apiKey);
     }
 }

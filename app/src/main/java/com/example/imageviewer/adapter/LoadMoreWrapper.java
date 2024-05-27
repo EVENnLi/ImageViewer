@@ -1,5 +1,6 @@
 package com.example.imageviewer.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.e("TAG", "onCreateViewHolder: " );
         switch (viewType){
             case IMAGE_ITEM:{
                 return adapter.onCreateViewHolder(parent,viewType);
@@ -63,28 +65,44 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        //如果是加载条
         if(holder instanceof ProgressbarHolder){
             ProgressbarHolder pHolder=(ProgressbarHolder) holder;
             TextView text=pHolder.loadingText;
+            ProgressBar progressBar=pHolder.progressBar;
             switch (loadState){
                 //TODO:具体的加载事件的文本显示
                 case LOADING:
-                    text.setText("加载中...");
                     pHolder.itemView.setVisibility(View.VISIBLE);
+                    text.setText("加载中...");
+                   text.setVisibility(View.VISIBLE);
+                   progressBar.setVisibility(View.VISIBLE);
                     break;
                 case LOAD_COMPLETE:
+                    pHolder.itemView.setVisibility(View.VISIBLE);
                     text.setText("加载完成");
-                    pHolder.itemView.setVisibility(View.INVISIBLE);
-                    //延时1秒消失
+                    text.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                  //  pHolder.itemView.postDelayed(()->{
+                        pHolder.itemView.setVisibility(View.INVISIBLE);
+                 //   },1500);
                     break;
 
                 case LOAD_FAILED:
-
+                    pHolder.itemView.setVisibility(View.VISIBLE);
+                    text.setText("加载失败");
+                    text.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    pHolder.itemView.postDelayed(()->{
+                        pHolder.itemView.setVisibility(View.INVISIBLE);
+                    },1500);
+                    break;
                 default:
 
             }
 
-        }else{
+        }
+        else{
             adapter.onBindViewHolder(holder,position);
         }
     }
@@ -109,7 +127,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
     }
 
     /**
-     * 重写该方法，使得加载头占两格
+     * 重写该方法，使得加载头占一行
      * @param recyclerView 实例
      */
     @Override
@@ -122,7 +140,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    //如果当前是加载头的位置，该item占据两格，否则正常情况为一格
+                    //如果当前是加载头的位置，该item占据一行，否则正常情况为一格
                     return getItemViewType(position)==PROGRESS_ITEM?gridManager.getSpanCount():1;
                 }
             });
@@ -135,7 +153,8 @@ public class LoadMoreWrapper extends RecyclerView.Adapter {
      */
     public void setLoadState(int loadState) {
         this.loadState = loadState;
-        notifyDataSetChanged();
+
+       notifyItemChanged(getItemCount()-1);
     }
 
     /**

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.imageviewer.MainActivity;
 import com.example.imageviewer.R;
+import com.example.imageviewer.bean.CatItem;
 import com.example.imageviewer.bean.ImageItem;
 import com.example.imageviewer.test.TestActivity;
 import com.example.imageviewer.util.ImageLoader;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<ImageItem> dataList;
+    private List<CatItem> dataList;
     private Context mContext;
     private ImageLoader mLoader;
 
@@ -38,7 +39,7 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
      * @param dataList 装载有数据类的List
      * @param context  上下文
      */
-    public MultiTypeRecyclerAdapter(List<ImageItem> dataList, Context context) {
+    public MultiTypeRecyclerAdapter(List<CatItem> dataList, Context context) {
         this.dataList = dataList;
         mContext = context;
         mLoader = ImageLoader.build(context);
@@ -71,42 +72,30 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Log.d("TAG", "onBindViewHolder: ");
-        ImageItem item = dataList.get(position);
+        CatItem item = dataList.get(position);
         ImageItemHolder itemHolder = (ImageItemHolder) holder;
         ImageView view = itemHolder.view1;
         //绑定作者信息
-        itemHolder.text1.setText(item.getAuthor());
+        itemHolder.text1.setText(item.getId());
         //绑定图片
         //宽高不确定到时候再说
-        mLoader.bindBitmap(item.getDownLoadUri(), view, 200, 90);
-       view.setOnClickListener(new View.OnClickListener() {
+        view.setImageResource(R.mipmap.ic_launcher);
+        mLoader.bindBitmap(item.getUrl(), view, 200, 90);
+
+
+        //int finalPosition = position;
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mContext, TestActivity.class);
                 intent.putExtra("datalist", (Serializable) dataList);
-                intent.putExtra("position",position);
+                intent.putExtra("position", holder.getAdapterPosition());
                 ((Activity)mContext).startActivityForResult(intent,0);
             }
         });
 
-
-     /*   Runnable task=(()->{
-            Bitmap bitmap= AboutUrl.downloadBitmapFromUrl(item.getDownLoadUri());
-
-            Handler mHandler=new Handler(Looper.getMainLooper());
-
-            mHandler.post(()->{
-                view.setImageBitmap(bitmap);
-            });
-
-        });
-
-        ThreadPoolUtil.S_THREAD_POOL_EXECUTOR.execute(task);
-*/
-
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -124,7 +113,6 @@ public class MultiTypeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
         public ImageItemHolder(@NonNull View itemView) {
             super(itemView);
             view1 = itemView.findViewById(R.id.image_view_one);
-
             text1 = itemView.findViewById(R.id.author_text_one);
         }
     }

@@ -1,7 +1,11 @@
 package com.example.imageviewer.network;
 
+import androidx.annotation.NonNull;
+
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -16,6 +20,7 @@ public class OkhttpUtil {
 
         try{
                 Response response=client.newCall(request).execute();
+
                 callback.onResponse(client.newCall(request),response );
         }catch (IOException e){
              callback.onFailure(client.newCall(request), e);

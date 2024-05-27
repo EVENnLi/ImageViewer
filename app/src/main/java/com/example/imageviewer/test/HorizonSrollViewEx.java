@@ -97,7 +97,6 @@ public class HorizonSrollViewEx extends ViewGroup {
                     measureHeight=view.getHeight();
                 }
             }
-
             measureWidth=childView.getMeasuredWidth()*childCount;//宽度为所有子元素宽度的和
             //假设子元素宽高不同
             //宽度应遍历子元素，相加其宽度
@@ -149,7 +148,6 @@ public class HorizonSrollViewEx extends ViewGroup {
         int y=(int)ev.getY();
         switch(ev.getAction()){
             case MotionEvent.ACTION_DOWN:{
-                intercepted=false;
                 //滑到一半突然点一下
                 if(!mScroller.isFinished()){
                     //中止上一次滑动的动作
@@ -179,7 +177,7 @@ public class HorizonSrollViewEx extends ViewGroup {
             default:
                 break;
         }
-        Toast.makeText(getContext(), "intercepted:"+intercepted, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "intercepted:"+intercepted, Toast.LENGTH_SHORT).show();
         mLastX=x;
         mLastY=y;
         mLastXIntercept=x;

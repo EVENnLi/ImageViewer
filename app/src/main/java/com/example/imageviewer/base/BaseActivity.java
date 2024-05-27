@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-public abstract class BaseActivity<P extends IBasePresenter & IBaseXPresenter> extends BaseXActivity<P> implements IBaseView {
+public abstract class BaseActivity<P extends IBaseXPresenter> extends BaseXActivity<P> implements IBaseView {
     private ProgressBar mProgressBar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

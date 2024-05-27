@@ -27,6 +27,8 @@ public class ImageItem implements Serializable {
 
     String download_url;
 
+    String small_url;
+
     public String getAuthor() {
         return author;
     }

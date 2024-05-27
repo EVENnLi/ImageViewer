@@ -37,17 +37,20 @@ public class ImageLoader {
             LoaderResult result = (LoaderResult) msg.obj;
             ImageView imageView = result.mImageView;
             imageView.setImageBitmap(result.mBitmap);
+            //uri不匹配
             String uri = (String) imageView.getTag(TAG_KEY_URI);
             if (uri.equals(result.uri)) {
                 imageView.setImageBitmap(result.mBitmap);
                 Log.e(TAG, "handleMessage: 相同");
             } else {
-                Log.e(TAG, "set image bitmap,but url has changed,ignored !");
+                Log.e(TAG, "set image bitmap,but url has changed,rebind !");
+                bindBitmap(uri,imageView,200,90);
             }
         }
     };
     private final ImageResizer mImageResizer = new ImageResizer();
     private final LruCache<String, Bitmap> mMemoryCache;
+
 
     private ImageLoader(Context context) {
         Context context1 = context.getApplicationContext();
@@ -95,21 +98,24 @@ public class ImageLoader {
         return mMemoryCache.get(key);
     }
 
+
     /**
      * 异步加载,外部通过调用这个方法来实现图片的三级缓存，异步加载里面实际上还调用了同步加载
      */
     public void bindBitmap(final String uri, ImageView imageView, final int reqWidth, final int reqHeight) {
         imageView.setTag(TAG_KEY_URI, uri);
-        imageView.setTag(uri);
+        //先从内存中获取图片
         Bitmap bitmap = loadBitmapFromMemCache(uri);
         Log.d(TAG, "内存获取： " + bitmap);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
             return;
         }
+        //内存无，从磁盘中获取
         Runnable loadBitmapTask = () -> {
             Bitmap bitmap1 = loadBitmap(uri, reqWidth, reqHeight);
             Log.d(TAG, "bindBitmap: " + bitmap);
+            //图片获取成功，交由handler去进行绑定
             if (bitmap1 != null) {
                 LoaderResult result = new LoaderResult(imageView, uri, bitmap1);
                 mMainHandler.obtainMessage(MESSAGE_POST_RESULT, result).sendToTarget();
@@ -132,17 +138,22 @@ public class ImageLoader {
             Log.e(TAG, "内存获取:" + uri);
             return bitmap;
         }
+
+
         try {
             bitmap = loadBitmapFromDiskCache(uri, reqWidth, reqHeight);
             if (bitmap != null) {
                 Log.e(TAG, "磁盘获取:" + uri);
                 return bitmap;
             }
+
             bitmap = loadBitmapFromHttp(uri, reqWidth, reqHeight);
             Log.e(TAG, "网络获取:" + uri);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        //还没有磁盘
         if (bitmap == null && !mIsDiskLruCacheCreated) {
             Log.e(TAG, "loadBitmap: encounter error,DiskLruCache id not created.");
             bitmap = AboutUrl.downloadBitmapFromUrl(uri);
@@ -170,12 +181,13 @@ public class ImageLoader {
      * @return 返回图片
      * @throws IOException IOException
      */
-    private Bitmap loadBitmapFromHttp(String url, int reqWidth, int
-            reqHeight)
+    private Bitmap loadBitmapFromHttp(String url, int reqWidth, int reqHeight)
             throws IOException {
+        //不能在UI线程上进行网络请求
         if (Looper.myLooper() == Looper.getMainLooper()) {
             throw new RuntimeException("can not visit network from UI Thread.");
         }
+        //如果磁盘还没创建，打回
         if (mDiskLruCache == null) {
             return null;
         }
@@ -190,6 +202,7 @@ public class ImageLoader {
             }
             mDiskLruCache.flush();
         }
+
         return loadBitmapFromDiskCache(url, reqWidth, reqHeight);
     }
 
@@ -239,6 +252,7 @@ public class ImageLoader {
         } else {
             cachePath = context.getCacheDir().getPath();
         }
+        Log.e(TAG, "getDiskCacheDir: "+cachePath );
         return new File(cachePath + File.separator + uniqueName);
     }
 }
